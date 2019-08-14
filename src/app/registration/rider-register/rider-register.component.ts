@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Register } from 'src/app/model';
 import { ApiService } from 'src/app/api/api-services';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 
 
@@ -33,6 +34,7 @@ export class RiderRegisterComponent implements OnInit {
   });
   isLocal:boolean;
   constructor(private api:ApiService,
+              private router:Router,
               private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -50,18 +52,23 @@ export class RiderRegisterComponent implements OnInit {
 
   saveReg(){
     this.populateDate();
-    this.api.postRegistration(this.register)
-        .subscribe((resp:any)=>{
-          console.log(resp);
-          if (resp.ok=="yes"){
-            this.toastr.success('Successfully Registered.', 'Message');
-          }else {
-            this.toastr.error('Fail to Register, '+resp.errmsg, 'Error', {
-              timeOut: 3000
-            });
+    localStorage.setItem('user', JSON.stringify(this.register));
+            //this.toastr.success('Successfully Registered.', 'Message');
+            this.router.navigate(['/success']);
+    // this.api.postRegistration(this.register)
+    //     .subscribe((resp:any)=>{
+    //       console.log(resp);
+    //       if (resp.ok=="yes"){
+    //         localStorage.setItem('user', JSON.stringify(this.register));
+    //         //this.toastr.success('Successfully Registered.', 'Message');
+    //         this.router.navigate(['/success']);
+    //       }else {
+    //         this.toastr.error('Fail to Register, '+resp.errmsg, 'Error', {
+    //           timeOut: 3000
+    //         });
       
-          }
-        });
+    //       }
+    //     });
   }
 
   populateDate(){
