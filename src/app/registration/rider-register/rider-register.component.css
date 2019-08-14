@@ -1,0 +1,32 @@
+html {
+  background-color: bisque;
+}
+mat-form-field {
+  width: 100%;
+}
+
+.container {
+  width: 60% !important;
+  margin-top: 10px !important;
+  margin-bottom:  10px !important;
+}
+.fill-remaining-space {
+   /* This fills the remaining space, by using flexbox. 
+      Every toolbar row uses a flexbox row layout. */
+   flex: 1 1 auto;
+ }
+
+/* 
+mat-expansion-panel-header {
+  background-color: #7D3C98;
+  color: white !important;
+  height: 70px !important;;
+}
+
+mat-expansion-panel-header:hover {
+  background-color: #7D3C98 !important;
+  color: white !important;
+  height: 70px !important;;
+}
+
+ */

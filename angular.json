@@ -19,11 +19,13 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "src/favicon.ico"             
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "./node_modules/material-design-icons/iconfont/material-icons.css",
+              "./node_modules/intl-tel-input/build/css/intlTelInput.css",
+              "./node_modules/ngx-toastr/toastr.css" 
             ],
             "scripts": []
           },
