@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMatIntlTelInputModule } from 'ngx-mat-intl-tel-input';
+import { DxDataGridModule } from 'devextreme-angular';
+
 import { HttpClientModule } from '@angular/common/http';
 import {MatInputModule, MatNativeDateModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -25,12 +27,16 @@ import { APP_BASE_HREF } from '@angular/common';
 import { ApiService } from './api/api-services';
 import { ToastrModule } from 'ngx-toastr';
 import { SuccessRegComponent } from './registration/success-reg/success-reg.component';
+import { RegisterAdminComponent } from './registration/register-admin/register-admin.component';
+import { RiderInfoComponent } from './registration/rider-info/rider-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RiderRegisterComponent,
-    SuccessRegComponent
+    SuccessRegComponent,
+    RegisterAdminComponent,
+    RiderInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +55,7 @@ import { SuccessRegComponent } from './registration/success-reg/success-reg.comp
     MatIconModule,
     MatExpansionModule,
     MatCardModule,
+    DxDataGridModule,
     BrowserAnimationsModule,
     NgxMatIntlTelInputModule,
     NgxMaskModule.forRoot(),

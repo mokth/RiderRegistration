@@ -1,0 +1,43 @@
+ <div class="container">
+        <mat-toolbar color="primary">
+                <i class="material-icons">motorcycle</i>
+                <span>&nbsp;&nbsp;Rider Registration List</span>
+                <span class="fill-remaining-space"></span>
+               
+              </mat-toolbar>
+   <dx-data-grid id="gridContainer" 
+             [dataSource]="dataSource" 
+             [wordWrapEnabled]="true"
+             [showBorders]="true">
+             <dxo-filter-row 
+             [visible]="true" 
+             [applyFilter]="true"></dxo-filter-row>
+         <dxo-header-filter 
+             [visible]="true"></dxo-header-filter>
+         <dxo-search-panel 
+             [visible]="true" 
+             [width]="240" 
+             placeholder="Search..."></dxo-search-panel>
+        <dxo-paging [pageSize]="10"></dxo-paging>
+        <dxo-pager 
+            [showPageSizeSelector]="true"
+            [allowedPageSizes]="[5, 10, 20]"
+            [showInfo]="true">
+        </dxo-pager>
+     <dxi-column dataField="noic" caption="IC NO"></dxi-column>
+     <dxi-column dataField="fullname" caption="Full Name" ></dxi-column>
+     <dxi-column dataField="nickname" caption="Nick Name"></dxi-column>
+     <dxi-column dataField="gender" caption="Gender"></dxi-column>
+     <dxi-column dataField="nationality" caption="Nationality"></dxi-column>
+     <dxi-column dataField="dob" caption="DOB" dataType="date"></dxi-column>
+     <dxi-column dataField="mobile1" caption="Mobile"></dxi-column>
+     <dxi-column dataField="status" caption="Status"></dxi-column>
+     <dxi-column cellTemplate="cellTemplate"></dxi-column>
+     <div *dxTemplate="let d of 'cellTemplate'">
+          <button class="btn btn-primary"
+               (click)="onEdit(d)"
+               >Edit</button>  
+      </div>
+   </dx-data-grid>
+
+ </div>

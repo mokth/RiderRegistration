@@ -1,4 +1,5 @@
 export class Register {
+    public uid:number;
     public fullname:string;
     public noic:string;
     public nickname:string;
@@ -16,4 +17,5 @@ export class Register {
     public startwork:Date;
     public remark:string;
     public status:string;
+    public joindate:Date;
 }

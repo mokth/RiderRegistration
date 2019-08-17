@@ -20,4 +20,11 @@ export class ApiService {
         return this.http.post(this.apiUrl + 'rider/registration',
             body, { headers: headers });
     }
+
+    postRegConfirm(reg: Register) {
+        let body = JSON.stringify(reg);
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.post(this.apiUrl + 'rider/regconfirm',
+            body, { headers: headers });
+    }
 }
