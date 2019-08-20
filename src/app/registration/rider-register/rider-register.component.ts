@@ -4,6 +4,7 @@ import { Register } from 'src/app/model';
 import { ApiService } from 'src/app/api/api-services';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { RegisterData } from 'src/app/model/register-data';
 
 
 
@@ -32,7 +33,17 @@ export class RiderRegisterComponent implements OnInit {
     stardate: new FormControl(null, Validators.required),
     remark: new FormControl('')
   });
+  
+  itemImgUrl:any;
+  itemImgUrl2:any;
+  itemImgUrl3:any;
+  itemImgUrl4:any;
   isLocal:boolean;
+  file1:any;
+  file2:any;
+  file3:any;
+  file4:any;
+
   constructor(private api:ApiService,
               private router:Router,
               private toastr: ToastrService) { }
@@ -51,13 +62,47 @@ export class RiderRegisterComponent implements OnInit {
   }
 
   saveReg(){
+    if (this.file1==null){
+      this.toastr.error("Image Font Page IC not found...");
+      return;
+    }
+    if (this.file2==null){
+      this.toastr.error("Image Back Page IC not found...");
+      return;
+    }
+    if (this.file3==null){
+      this.toastr.error("Image Front Page Motor License not found...");
+      return;
+    }
+    if (this.file4==null){
+      this.toastr.error("Image Back Page Motor License not found...");
+      return;
+    }
     this.populateDate();
-    localStorage.setItem('user', JSON.stringify(this.register));
+
+    let data = new FormData();
+    const blob = new Blob([JSON.stringify(this.register)], {type : 'application/json'});
+    
+    data.append("file", blob);
+    data.append("file",this.file1);
+    data.append("file",this.file2);
+    data.append("file",this.file3);
+    data.append("file",this.file4);
+    
+   
+   // localStorage.setItem('user', JSON.stringify(this.register));
             //this.toastr.success('Successfully Registered.', 'Message');
-            this.router.navigate(['/success']);
-    // this.api.postRegistration(this.register)
-    //     .subscribe((resp:any)=>{
-    //       console.log(resp);
+           // this.router.navigate(['/success']);
+     this.api.postRegistrationEx(data)
+         .subscribe((resp:any)=>{
+           if (resp.ok=="yes"){
+            this.router.navigate(['/success'], {state: {data: this.register}});
+           }else {
+            this.toastr.error('Fail to Register, '+resp.errmsg, 'Error', {
+              timeOut: 4000
+            });
+           }
+         });
     //       if (resp.ok=="yes"){
     //         localStorage.setItem('user', JSON.stringify(this.register));
     //         //this.toastr.success('Successfully Registered.', 'Message');
@@ -92,5 +137,53 @@ export class RiderRegisterComponent implements OnInit {
 
 
     console.log(this.register);
+  }
+
+  OnItemFileChange(e) {
+    console.log(e);
+    if (e.value) {
+      var reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.itemImgUrl = event.target.result;
+      }
+      reader.readAsDataURL(e.value[0]);
+      this.file1=e.value[0];    
+    }
+  }
+
+   OnItemFileChange2(e) {
+      console.log(e);
+      if (e.value) {
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.itemImgUrl2 = event.target.result;
+        }
+        reader.readAsDataURL(e.value[0]);
+        this.file2=e.value[0];      
+      }
+  }
+
+  OnItemFileChange3(e) {
+    console.log(e);
+    if (e.value) {
+      var reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.itemImgUrl3 = event.target.result;
+      }
+      reader.readAsDataURL(e.value[0]);
+      this.file3=e.value[0];      
+    }
+  }
+
+  OnItemFileChange4(e) {
+    console.log(e);
+    if (e.value) {
+      var reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.itemImgUrl4 = event.target.result;
+      }
+      reader.readAsDataURL(e.value[0]);
+      this.file4=e.value[0];      
+    }
   }
 }

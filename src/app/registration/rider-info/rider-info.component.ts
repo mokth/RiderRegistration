@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Register } from 'src/app/model';
 import { ApiService } from 'src/app/api/api-services';
@@ -15,6 +15,11 @@ export class RiderInfoComponent implements OnInit {
 
   register :Register;
   data:any;
+  itemImgUrl1:String;
+  itemImgUrl2:String;
+  itemImgUrl3:String;
+  itemImgUrl4:String;
+
   profileForm = new FormGroup({
     name: new FormControl('', Validators.required),
     nickname: new FormControl('', Validators.required),
@@ -37,6 +42,7 @@ export class RiderInfoComponent implements OnInit {
   });
   isLocal:boolean;
   constructor(private api:ApiService,
+              @Inject('API_URL') public apiUrl: string,
               private router:Router,
               private toastr: ToastrService) { }
 
@@ -68,6 +74,11 @@ export class RiderInfoComponent implements OnInit {
     this.profileForm.get('remark').setValue(this.data.remark);
     this.profileForm.get('status').setValue(this.data.status);
     this.profileForm.get('joindate').setValue(this.data.joindate);
+    let baseUrl = this.apiUrl.replace('api/','registerimg/')
+    this.itemImgUrl1 = baseUrl +this.data.filename1;
+    this.itemImgUrl2 = baseUrl +this.data.filename2;
+    this.itemImgUrl3 = baseUrl +this.data.filename3;
+    this.itemImgUrl4 = baseUrl +this.data.filename4;
   }
 
   onFaq() {

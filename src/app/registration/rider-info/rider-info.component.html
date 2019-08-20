@@ -215,6 +215,45 @@
       </mat-expansion-panel>
     </mat-accordion>
     <mat-divider></mat-divider>
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Uploaded Images
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <div class="col">
+            <h6>IC Front Page</h6>
+            <div class="form-group">
+              <a><img class="itemimg" src="{{itemImgUrl1}}" width="200px" height="200px" /> </a>
+            </div>
+          </div>
+          <div class="col">
+              <h6>IC Back Page</h6>
+            <div class="form-group">
+              <a><img class="itemimg" src="{{itemImgUrl2}}" width="200px" height="200px" /> </a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h6>Driving License Front Page</h6>
+              <div class="form-group">
+                <a><img class="itemimg" src="{{itemImgUrl3}}" width="200px" height="200px" /> </a>
+              </div>
+            </div>
+            <div class="col">
+                <h6>Driving License Back Page</h6>
+              <div class="form-group">
+                <a><img class="itemimg" src="{{itemImgUrl4}}" width="200px" height="200px" /> </a>
+              </div>
+            </div>
+        </div>
+       
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-divider></mat-divider>
     <mat-toolbar color="primary">
       <button type="submit" mat-raised-button (click)="saveReg()" [disabled]="!profileForm.valid">
         <i class="material-icons">send</i>

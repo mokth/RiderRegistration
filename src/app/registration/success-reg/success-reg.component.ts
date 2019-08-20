@@ -8,11 +8,14 @@ import { Register } from 'src/app/model';
 })
 export class SuccessRegComponent implements OnInit {
   register :Register;
-  constructor() { }
+  constructor() {
+    if (history.state.data!=null){
+      this.register = history.state.data;
+    }
+   }
 
   ngOnInit() {
     
-    this.register = JSON.parse(localStorage.getItem('user'));
   }
 
 }

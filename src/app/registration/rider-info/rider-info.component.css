@@ -13,7 +13,13 @@ mat-form-field {
         Every toolbar row uses a flexbox row layout. */
      flex: 1 1 auto;
    }
-  
+   .itemimg {
+    display: block;
+    max-width:400px;
+    max-height:200px;
+    width: auto;
+    height: auto;
+  }
   /* 
   mat-expansion-panel-header {
     background-color: #7D3C98;

@@ -4,7 +4,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMatIntlTelInputModule } from 'ngx-mat-intl-tel-input';
 import { DxDataGridModule } from 'devextreme-angular';
-
+import { DxFileUploaderModule } from "devextreme-angular";
 import { HttpClientModule } from '@angular/common/http';
 import {MatInputModule, MatNativeDateModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -29,6 +29,10 @@ import { ToastrModule } from 'ngx-toastr';
 import { SuccessRegComponent } from './registration/success-reg/success-reg.component';
 import { RegisterAdminComponent } from './registration/register-admin/register-admin.component';
 import { RiderInfoComponent } from './registration/rider-info/rider-info.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './services/auth.service';
+import { AuthguardService } from './services/AuthguardService';
+import { CanDeactivateGuard } from './services/CanDeactivateGuard';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,8 @@ import { RiderInfoComponent } from './registration/rider-info/rider-info.compone
     RiderRegisterComponent,
     SuccessRegComponent,
     RegisterAdminComponent,
-    RiderInfoComponent
+    RiderInfoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +61,7 @@ import { RiderInfoComponent } from './registration/rider-info/rider-info.compone
     MatExpansionModule,
     MatCardModule,
     DxDataGridModule,
+    DxFileUploaderModule,
     BrowserAnimationsModule,
     NgxMatIntlTelInputModule,
     NgxMaskModule.forRoot(),
@@ -63,6 +69,9 @@ import { RiderInfoComponent } from './registration/rider-info/rider-info.compone
   ],
   providers: [
     ApiService,
+    AuthService,
+    AuthguardService,
+    CanDeactivateGuard,  
     MatDatepickerModule, 
     {provide: APP_BASE_HREF, useValue: `${environment.BASE_URL}` },
     {provide:'API_URL',useValue: `${environment.apiUrl}`}, 

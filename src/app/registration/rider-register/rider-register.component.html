@@ -27,35 +27,27 @@
         </div>
 
         <div class="row">
-            <div class="col-6">
-                <mat-form-field>
-                  <mat-label>Nationality / Warga negara</mat-label>
-                  <mat-select formControlName="nationality"
-                              (selectionChange)="onNationalityChange()"
-                              required="true">
-                    <mat-option value="Malaysia">
-                      Malaysian
-                    </mat-option>
-                    <mat-option value="Other">
-                      Other / Bukan Malaysia
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
           <div class="col-6">
             <mat-form-field>
-              <input *ngIf="isLocal" formControlName="icno" 
-                     required="true" 
-                     matInput
-                     mask='000000-00-0000' 
-                     placeholder="NRIC / IC No / Passport No">
-              <input *ngIf="!isLocal" formControlName="icno" 
-                     required="true" 
-                     matInput
-                     placeholder="Passport No">
+              <mat-label>Nationality / Warga negara</mat-label>
+              <mat-select formControlName="nationality" (selectionChange)="onNationalityChange()" required="true">
+                <mat-option value="Malaysia">
+                  Malaysian
+                </mat-option>
+                <mat-option value="Other">
+                  Other / Bukan Malaysia
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
-         
+          <div class="col-6">
+            <mat-form-field>
+              <input *ngIf="isLocal" formControlName="icno" required="true" matInput mask='000000-00-0000'
+                placeholder="NRIC / IC No / Passport No">
+              <input *ngIf="!isLocal" formControlName="icno" required="true" matInput placeholder="Passport No">
+            </mat-form-field>
+          </div>
+
         </div>
 
         <div class="row">
@@ -96,27 +88,18 @@
             <mat-form-field>
               <mat-label>Mobile No1 / Telefon Bimbit1</mat-label>
               <!-- <input formControlName="mobil1" required="true" matInput placeholder="Mobile No1 / Telefon Bimbit1"> -->
-              <ngx-mat-intl-tel-input                   
-                   [onlyCountries]="['my']"
-                   [enableAutoCountrySelect]="true" 
-                   [enablePlaceholder]="true" 
-                   name="phone" 
-                   required="true"
-                   formControlName="mobil1" #phone>
+              <ngx-mat-intl-tel-input [onlyCountries]="['my']" [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true" name="phone" required="true" formControlName="mobil1" #phone>
               </ngx-mat-intl-tel-input>
             </mat-form-field>
           </div>
           <div class="col-6">
-            <mat-form-field>               
-                    <mat-label>Mobile No2 / Telefon Bimbit2</mat-label>
-                    <!-- <input formControlName="mobil1" required="true" matInput placeholder="Mobile No1 / Telefon Bimbit1"> -->
-                    <ngx-mat-intl-tel-input                   
-                         [onlyCountries]="['my']"
-                         [enableAutoCountrySelect]="true" 
-                         [enablePlaceholder]="true" 
-                         name="phone" 
-                         formControlName="mobil2" #phone>
-                    </ngx-mat-intl-tel-input>                 
+            <mat-form-field>
+              <mat-label>Mobile No2 / Telefon Bimbit2</mat-label>
+              <!-- <input formControlName="mobil1" required="true" matInput placeholder="Mobile No1 / Telefon Bimbit1"> -->
+              <ngx-mat-intl-tel-input [onlyCountries]="['my']" [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true" name="phone" formControlName="mobil2" #phone>
+              </ngx-mat-intl-tel-input>
             </mat-form-field>
           </div>
         </div>
@@ -124,17 +107,12 @@
         <div class="row">
           <div class="col-6">
             <mat-form-field>
-                <mat-label>Emergency Contact / Talian Kecemasan</mat-label>
-                <!-- <input formControlName="mobil1" required="true" matInput placeholder="Mobile No1 / Telefon Bimbit1"> -->
-                <ngx-mat-intl-tel-input                   
-                     [onlyCountries]="['my']"
-                     [enableAutoCountrySelect]="true" 
-                     [enablePlaceholder]="true" 
-                     required="true"
-                     name="phone" 
-                     formControlName="emergency" #phone>
-                </ngx-mat-intl-tel-input>  
-             
+              <mat-label>Emergency Contact / Talian Kecemasan</mat-label>
+              <!-- <input formControlName="mobil1" required="true" matInput placeholder="Mobile No1 / Telefon Bimbit1"> -->
+              <ngx-mat-intl-tel-input [onlyCountries]="['my']" [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true" required="true" name="phone" formControlName="emergency" #phone>
+              </ngx-mat-intl-tel-input>
+
             </mat-form-field>
           </div>
           <div class="col-6">
@@ -198,13 +176,70 @@
       </mat-expansion-panel>
     </mat-accordion>
     <mat-divider></mat-divider>
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Upload Image / Muat Naik Imej
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <div class="col">
+            <dx-file-uploader #fileUploaderItem [multiple]="false" selectButtonText='Select Image'
+              labelText='Front Page IC / IC Muka Depan' accept="*" uploadMode="useForm"
+              (onValueChanged)="OnItemFileChange($event)"></dx-file-uploader>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <a><img class="itemimg" src="{{itemImgUrl}}" width="200px" height="200px" /> </a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col">
+              <dx-file-uploader #fileUploaderItem [multiple]="false" selectButtonText='Select Image'
+                labelText='Back Page IC / IC Muka Belakang' accept="*" uploadMode="useForm"
+                (onValueChanged)="OnItemFileChange2($event)"></dx-file-uploader>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <a><img class="itemimg" src="{{itemImgUrl2}}" width="200px" height="200px" /> </a>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+              <dx-file-uploader #fileUploaderItem [multiple]="false" selectButtonText='Select Image'
+                labelText='Font Driving License / License Motor Depan' accept="*" uploadMode="useForm"
+                (onValueChanged)="OnItemFileChange3($event)"></dx-file-uploader>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <a><img class="itemimg" src="{{itemImgUrl3}}" width="200px" height="200px" /> </a>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+              <dx-file-uploader #fileUploaderItem [multiple]="false" selectButtonText='Select Image'
+                labelText='Back Driving License / License Motor Belakang' accept="*" uploadMode="useForm"
+                (onValueChanged)="OnItemFileChange4($event)"></dx-file-uploader>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <a><img class="itemimg" src="{{itemImgUrl4}}" width="200px" height="200px" /> </a>
+              </div>
+            </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
     <mat-toolbar color="primary">
-      <button type="submit" 
-              mat-raised-button
-              (click)="saveReg()" 
-              [disabled]="!profileForm.valid">
-              <i class="material-icons">send</i>
-               Submit / Hantar</button>
+      <button type="submit" mat-raised-button 
+         (click)="saveReg()" 
+         [disabled]="!profileForm.valid"
+         >
+        <i class="material-icons">send</i>
+        Submit / Hantar</button>
     </mat-toolbar>
     <mat-divider></mat-divider>
   </form>

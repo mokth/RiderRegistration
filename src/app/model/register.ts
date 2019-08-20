@@ -18,4 +18,5 @@ export class Register {
     public remark:string;
     public status:string;
     public joindate:Date;
+   
 }

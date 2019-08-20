@@ -4,14 +4,19 @@ import { RiderRegisterComponent } from './registration/rider-register/rider-regi
 import { SuccessRegComponent } from './registration/success-reg/success-reg.component';
 import { RegisterAdminComponent } from './registration/register-admin/register-admin.component';
 import { RiderInfoComponent } from './registration/rider-info/rider-info.component';
+import { LoginComponent } from './login/login.component';
+import { AuthguardService } from './services/AuthguardService';
 
 const routes: Routes = [
   { path: "", redirectTo: "/register", pathMatch: "full" },
   { path: "register", component: RiderRegisterComponent, pathMatch: "full"  },
   
-  { path: "admin", component: RegisterAdminComponent, pathMatch: "full"  },
-  { path: "success", component: SuccessRegComponent, pathMatch: "full"  },
-  { path: "rider", component: RiderInfoComponent, pathMatch: "full"  },
+  {
+    path: 'login', component:LoginComponent     
+  },
+  { path: "admin",canActivate: [AuthguardService], component: RegisterAdminComponent, pathMatch: "full"  },
+  { path: "success",canActivate: [AuthguardService], component: SuccessRegComponent, pathMatch: "full"  },
+  { path: "rider", canActivate: [AuthguardService],component: RiderInfoComponent, pathMatch: "full"  },
  
 ];
 
