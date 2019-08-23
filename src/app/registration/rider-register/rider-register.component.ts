@@ -5,13 +5,19 @@ import { ApiService } from 'src/app/api/api-services';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { RegisterData } from 'src/app/model/register-data';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/services/format-datepicker';
 
 
 
 @Component({
   selector: 'app-rider-register',
   templateUrl: './rider-register.component.html',
-  styleUrls: ['./rider-register.component.css']
+  styleUrls: ['./rider-register.component.css'],
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS}
+  ]
 })
 export class RiderRegisterComponent implements OnInit {
   register :Register;
