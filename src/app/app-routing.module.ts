@@ -8,15 +8,15 @@ import { LoginComponent } from './login/login.component';
 import { AuthguardService } from './services/AuthguardService';
 
 const routes: Routes = [
-  { path: "", redirectTo: "/register", pathMatch: "full" },
-  { path: "register", component: RiderRegisterComponent, pathMatch: "full"  },
-  
+  { path: "",  component: RiderRegisterComponent  },
+  { path: "register", component: RiderRegisterComponent  },
+  { path: "success", component: SuccessRegComponent  },
   {
-    path: 'login', component:LoginComponent     
+    path: 'login', component:LoginComponent,    
   },
-  { path: "admin",canActivate: [AuthguardService], component: RegisterAdminComponent, pathMatch: "full"  },
-  { path: "success",canActivate: [AuthguardService], component: SuccessRegComponent, pathMatch: "full"  },
-  { path: "rider", canActivate: [AuthguardService],component: RiderInfoComponent, pathMatch: "full"  },
+  { path: "admin",canActivate: [AuthguardService], component: RegisterAdminComponent  },
+ 
+  { path: "rider", canActivate: [AuthguardService],component: RiderInfoComponent  },
  
 ];
 

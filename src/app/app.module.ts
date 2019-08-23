@@ -73,7 +73,7 @@ import { CanDeactivateGuard } from './services/CanDeactivateGuard';
     AuthguardService,
     CanDeactivateGuard,  
     MatDatepickerModule, 
-    {provide: APP_BASE_HREF, useValue: `${environment.BASE_URL}` },
+   // {provide: APP_BASE_HREF, useValue: `${environment.BASE_URL}` },
     {provide:'API_URL',useValue: `${environment.apiUrl}`}, 
   ],
   bootstrap: [AppComponent]
