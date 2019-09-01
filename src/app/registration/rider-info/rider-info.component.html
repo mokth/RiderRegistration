@@ -1,7 +1,7 @@
 <div class="container">
   <mat-toolbar color="primary">
     <i class="material-icons">motorcycle</i>
-    <span>&nbsp;&nbsp;Rider Registration / Pendaftaran Rider</span>
+    <span>&nbsp;&nbsp;Rider Registration</span>
     <span class="fill-remaining-space"></span>
     <span> <button mat-button>FAQ</button> </span>
   </mat-toolbar>
@@ -14,12 +14,12 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <input formControlName="name" required="true" matInput placeholder="Full Name">
             </mat-form-field>
           </div>
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <input formControlName="nickname" required="true" matInput placeholder="Nick Name">
             </mat-form-field>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <mat-label>Nationality</mat-label>
               <mat-select formControlName="nationality" (selectionChange)="onNationalityChange()" required="true">
@@ -40,7 +40,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <input *ngIf="isLocal" formControlName="icno" required="true" matInput mask='000000-00-0000'
                 placeholder="NRIC / IC No / Passport No">
@@ -51,7 +51,7 @@
         </div>
 
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <input formControlName="dob" required="true" id="dob" matInput [matDatepicker]="picker"
                 placeholder="DOB">
@@ -59,7 +59,7 @@
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
           </div>
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <mat-label>Gender</mat-label>
               <mat-select formControlName="gender" required="true">
@@ -84,7 +84,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <mat-label>Mobile No1</mat-label>
               <!-- <input formControlName="mobil1" required="true" matInput placeholder="Mobile No1 / Telefon Bimbit1"> -->
@@ -93,9 +93,9 @@
               </ngx-mat-intl-tel-input>
             </mat-form-field>
           </div>
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
-              <mat-label>Mobile No2</mat-label>
+              <mat-label>Mobile (Whatsapp)</mat-label>
               <!-- <input formControlName="mobil1" required="true" matInput placeholder="Mobile No1 / Telefon Bimbit1"> -->
               <ngx-mat-intl-tel-input [onlyCountries]="['my']" [enableAutoCountrySelect]="true"
                 [enablePlaceholder]="true" name="phone" formControlName="mobil2" #phone>
@@ -105,7 +105,7 @@
         </div>
 
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <mat-label>Emergency Contact</mat-label>
               <!-- <input formControlName="mobil1" required="true" matInput placeholder="Mobile No1 / Telefon Bimbit1"> -->
@@ -115,11 +115,18 @@
 
             </mat-form-field>
           </div>
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <input formControlName="contact" required="true" matInput placeholder="Contact Relationship">
             </mat-form-field>
           </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-xs-12">
+              <mat-form-field>
+                <input formControlName="address" matInput placeholder="Address / Alamat">
+              </mat-form-field>
+           </div>         
         </div>
       </mat-expansion-panel>
     </mat-accordion>
@@ -132,12 +139,12 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <input formControlName="vehicle" required="true" matInput placeholder="Vehicle No">
             </mat-form-field>
           </div>
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <input formControlName="driving" required="true" matInput
                 placeholder="Driving License No">
@@ -146,12 +153,12 @@
         </div>
 
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <input formControlName="working1" matInput placeholder="Working Experience 1">
             </mat-form-field>
           </div>
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <input formControlName="working2" matInput placeholder="Working Experience 2">
             </mat-form-field>
@@ -159,7 +166,7 @@
         </div>
 
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <input formControlName="stardate" required="true" id="dwork" matInput [matDatepicker]="picker2"
                 placeholder="Available Date">
@@ -167,7 +174,7 @@
               <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
           </div>
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <input formControlName="remark" matInput placeholder="Remark">
             </mat-form-field>
@@ -184,7 +191,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row">
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <input formControlName="joindate" required="true" id="dwork" matInput [matDatepicker]="picker3"
                 placeholder="Join Date">
@@ -192,7 +199,7 @@
               <mat-datepicker #picker3></mat-datepicker>
             </mat-form-field>
           </div>
-          <div class="col-6">
+          <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <mat-label>Status</mat-label>
               <mat-select formControlName="status" required="true">
@@ -250,12 +257,18 @@
               </div>
             </div>
         </div>
-       
+        <div class="row">
+          <div class="col">
+            <mat-spinner *ngIf="isShowLoading"></mat-spinner>
+          </div>
+       </div>
       </mat-expansion-panel>
     </mat-accordion>
     <mat-divider></mat-divider>
     <mat-toolbar color="primary">
-      <button type="submit" mat-raised-button (click)="saveReg()" [disabled]="!profileForm.valid">
+      <button type="submit" mat-raised-button 
+         (click)="saveReg()"
+          [disabled]="!profileForm.valid ">
         <i class="material-icons">send</i>
         Submit / Hantar</button>
     </mat-toolbar>

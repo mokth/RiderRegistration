@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Register } from '../model';
 import { RegisterData } from '../model/register-data';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +12,7 @@ import { RegisterData } from '../model/register-data';
 export class ApiService {
     constructor(private http: HttpClient,
         private router: Router,
+        private auth:AuthService,
         @Inject('API_URL') public apiUrl: string,
     ) {
     }
@@ -32,7 +34,9 @@ export class ApiService {
 
     postRegConfirm(reg: Register) {
         let body = JSON.stringify(reg);
-        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        let headers = new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization', this.auth.getAuthToken());
         return this.http.post(this.apiUrl + 'rider/regconfirm',
             body, { headers: headers });
     }

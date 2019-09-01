@@ -18,6 +18,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {NgxMaskModule, IConfig} from 'ngx-mask'
 import {MatCardModule} from '@angular/material/card';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -60,6 +61,7 @@ import { CanDeactivateGuard } from './services/CanDeactivateGuard';
     MatIconModule,
     MatExpansionModule,
     MatCardModule,
+    MatProgressSpinnerModule,
     DxDataGridModule,
     DxFileUploaderModule,
     BrowserAnimationsModule,

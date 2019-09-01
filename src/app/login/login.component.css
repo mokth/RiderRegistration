@@ -133,6 +133,7 @@ iframe {
 .limiter {
 	width: 100%;
 	margin: 0 auto;
+	
   }
   
   .container-login100 {
@@ -159,6 +160,7 @@ iframe {
 	background: #fff;
 	border-radius: 10px;
 	position: relative;
+	padding: 30px;
   }
   
   

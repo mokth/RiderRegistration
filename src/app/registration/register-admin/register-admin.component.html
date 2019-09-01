@@ -1,43 +1,101 @@
- <div class="container">
-        <mat-toolbar color="primary">
-                <i class="material-icons">motorcycle</i>
-                <span>&nbsp;&nbsp;Rider Registration List</span>
-                <span class="fill-remaining-space"></span>
-               
-              </mat-toolbar>
-   <dx-data-grid id="gridContainer" 
-             [dataSource]="dataSource" 
-             [wordWrapEnabled]="true"
-             [showBorders]="true">
-             <dxo-filter-row 
-             [visible]="true" 
-             [applyFilter]="true"></dxo-filter-row>
-         <dxo-header-filter 
-             [visible]="true"></dxo-header-filter>
-         <dxo-search-panel 
-             [visible]="true" 
-             [width]="240" 
-             placeholder="Search..."></dxo-search-panel>
-        <dxo-paging [pageSize]="10"></dxo-paging>
-        <dxo-pager 
-            [showPageSizeSelector]="true"
-            [allowedPageSizes]="[5, 10, 20]"
-            [showInfo]="true">
-        </dxo-pager>
-     <dxi-column dataField="noic" caption="IC NO"></dxi-column>
-     <dxi-column dataField="fullname" caption="Full Name" ></dxi-column>
-     <dxi-column dataField="nickname" caption="Nick Name"></dxi-column>
-     <dxi-column dataField="gender" caption="Gender"></dxi-column>
-     <dxi-column dataField="nationality" caption="Nationality"></dxi-column>
-     <dxi-column dataField="dob" caption="DOB" dataType="date"></dxi-column>
-     <dxi-column dataField="mobile1" caption="Mobile"></dxi-column>
+ <div class="container-fluid">
+   <mat-toolbar *ngIf="!isSmallScreen" color="primary">
+     <i class="material-icons">motorcycle</i>
+     <span>&nbsp;&nbsp;Rider Registration List</span>
+     <span class="fill-remaining-space"></span>
+     <button type="button" mat-raised-button (click)="logOut()">
+       <i class="material-icons">directions_walk</i>
+       Logout</button>
+   </mat-toolbar>
+   <mat-toolbar *ngIf="isSmallScreen" color="primary">
+     <i class="material-icons">motorcycle</i>
+     <small><span>&nbsp;&nbsp;Rider Registration List</span></small>
+     <span class="fill-remaining-space"></span>
+     <button class="btn-sm" type="button" mat-raised-button (click)="logOut()">
+       <i class="material-icons">directions_walk</i>
+       <small>Logout</small></button>
+   </mat-toolbar>
+   <dx-data-grid *ngIf="!isSmallScreen" id="gridContainer" [dataSource]="dataSource" [wordWrapEnabled]="true"
+     [showBorders]="true">
+     <dxo-filter-row [visible]="true" [applyFilter]="true"></dxo-filter-row>
+     <dxo-header-filter [visible]="true"></dxo-header-filter>
+     <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+     <dxo-paging [pageSize]="10"></dxo-paging>
+     <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+     </dxo-pager>
      <dxi-column dataField="status" caption="Status"></dxi-column>
+     <dxi-column dataField="noic" caption="IC NO"></dxi-column>
+     <dxi-column dataField="fullname" caption="Full Name"></dxi-column>
+     <dxi-column dataField="mobile1" caption="Mobile"></dxi-column>
+     <dxi-column dataField="mobile2" caption="Mobile Whatsapp"></dxi-column>
+     <dxi-column dataField="vehicleno" caption="Plate No"></dxi-column>
+     <dxi-column dataField="rider_id" caption="Rider ID"></dxi-column>
+     <dxi-column dataField="registeredOn" caption="Registered On" dataType="date"></dxi-column>
+     <dxi-column dataField="updatedOn" caption="Updated On" dataType="date"></dxi-column>
+     <dxi-column dataField="updateby" caption="Updated By"></dxi-column>
      <dxi-column cellTemplate="cellTemplate"></dxi-column>
      <div *dxTemplate="let d of 'cellTemplate'">
-          <button class="btn btn-primary"
-               (click)="onEdit(d)"
-               >Edit</button>  
-      </div>
+       <button class="btn btn-primary" (click)="onEdit(d)">Edit</button>
+     </div>
+   </dx-data-grid>
+
+   <dx-data-grid *ngIf="isSmallScreen" id="gridContainer" [dataSource]="dataSource" [wordWrapEnabled]="true"
+     [showBorders]="true">
+
+
+     <dxo-search-panel [visible]="true" placeholder="Search..."></dxo-search-panel>
+     <dxo-paging [pageSize]="10"></dxo-paging>
+     <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+     </dxo-pager>
+     <dxi-column cellTemplate="dataTemplate"></dxi-column>
+
+     <div *dxTemplate="let d of 'dataTemplate'">
+       <div class="row">
+         <div class="col">
+           <small class="item-caption">Name</small>
+           <div class="item-data">{{d.data.fullname}}</div>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col">
+           <small class="item-caption">NRIC</small>
+           <div class="item-data"> {{d.data.noic}}</div>
+
+         </div>
+         <div class="col">
+           <small class="item-caption">Mobile No.</small>
+           <div class="item-data"> d.data.mobile1</div>
+
+         </div>
+       </div>
+       <div class="row">
+         <div class="col">
+           <small class="item-caption">Status</small>
+           <div class="item-data"> d.data.status</div>
+         </div>
+         <div class="col">
+           <small class="item-caption">Plate No.</small>
+           <div class="item-data"> {{d.data.vehicleno}}</div>
+         </div>
+       </div>
+       <div class="row">
+            <div class="col">
+              <small class="item-caption">Rider Id</small>
+              <div class="item-data"> d.data.rider_id</div>
+            </div>
+            <div class="col">
+              <small class="item-caption">Registed On</small>
+              <div class="item-data"> {{d.data.registeredOn | date:'dd-MM-yyyy'}}</div>
+            </div>
+          </div>
+     <mat-divider [inset]="true"></mat-divider>
+       <div class="row">
+         <div class="col">
+           <button class="btn btn-sm btn-block btn-info" (click)="onEdit(d)">Edit</button>
+         </div>
+       </div>
+       
+     </div>
    </dx-data-grid>
 
  </div>

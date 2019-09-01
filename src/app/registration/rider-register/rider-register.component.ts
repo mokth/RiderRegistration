@@ -8,8 +8,6 @@ import { RegisterData } from 'src/app/model/register-data';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/services/format-datepicker';
 
-
-
 @Component({
   selector: 'app-rider-register',
   templateUrl: './rider-register.component.html',
@@ -21,6 +19,7 @@ import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/services/format-datepi
 })
 export class RiderRegisterComponent implements OnInit {
   register :Register;
+  isSubmiting:boolean;
   profileForm = new FormGroup({
     name: new FormControl('', Validators.required),
     nickname: new FormControl('', Validators.required),
@@ -32,6 +31,7 @@ export class RiderRegisterComponent implements OnInit {
     mobil2: new FormControl(''),
     emergency: new FormControl('', Validators.required),
     contact: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
     vehicle: new FormControl('', Validators.required),
     driving: new FormControl('', Validators.required),
     working1: new FormControl(''),
@@ -56,6 +56,7 @@ export class RiderRegisterComponent implements OnInit {
 
   ngOnInit() {
     this.isLocal = true;
+    this.isSubmiting=false;
   }
 
   onFaq() {
@@ -84,6 +85,7 @@ export class RiderRegisterComponent implements OnInit {
       this.toastr.error("Image Back Page Motor License not found...");
       return;
     }
+    this.isSubmiting=true;
     this.populateDate();
 
     let data = new FormData();
@@ -104,6 +106,7 @@ export class RiderRegisterComponent implements OnInit {
            if (resp.ok=="yes"){
             this.router.navigate(['/success'], {state: {data: this.register}});
            }else {
+            this.isSubmiting=false; 
             this.toastr.error('Fail to Register, '+resp.errmsg, 'Error', {
               timeOut: 4000
             });
@@ -133,6 +136,7 @@ export class RiderRegisterComponent implements OnInit {
     this.register.mobile1 = this.profileForm.value.mobil1;
     this.register.mobile2 = this.profileForm.value.mobil2;
     this.register.contact = this.profileForm.value.contact;
+    this.register.address = this.profileForm.value.address;
     this.register.emergency = this.profileForm.value.emergency;
     this.register.vehicleno = this.profileForm.value.vehicle;
     this.register.drivingno = this.profileForm.value.driving;
@@ -140,8 +144,9 @@ export class RiderRegisterComponent implements OnInit {
     this.register.workexp2 = this.profileForm.value.working2;
     this.register.startwork = this.profileForm.value.stardate;
     this.register.remark = this.profileForm.value.remark;
-
-
+    this.register.mobile1 = this.register.mobile1.replace('+','');
+    this.register.mobile2 = this.register.mobile2.replace('+','');
+    this.register.emergency = this.register.emergency.replace('+','');
     console.log(this.register);
   }
 

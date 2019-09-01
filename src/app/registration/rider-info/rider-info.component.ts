@@ -4,12 +4,18 @@ import { Register } from 'src/app/model';
 import { ApiService } from 'src/app/api/api-services';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/services/format-datepicker';
 
 
 @Component({
   selector: 'app-rider-info',
   templateUrl: './rider-info.component.html',
-  styleUrls: ['./rider-info.component.css']
+  styleUrls: ['./rider-info.component.css'],
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS}
+  ]
 })
 export class RiderInfoComponent implements OnInit {
 
@@ -19,6 +25,8 @@ export class RiderInfoComponent implements OnInit {
   itemImgUrl2:String;
   itemImgUrl3:String;
   itemImgUrl4:String;
+  isSubmiting:boolean;
+  isShowLoading:boolean;
 
   profileForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -31,6 +39,7 @@ export class RiderInfoComponent implements OnInit {
     mobil2: new FormControl(''),
     emergency: new FormControl('', Validators.required),
     contact: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
     vehicle: new FormControl('', Validators.required),
     driving: new FormControl('', Validators.required),
     working1: new FormControl(''),
@@ -48,6 +57,8 @@ export class RiderInfoComponent implements OnInit {
 
   ngOnInit() {
     this.isLocal = true;
+    this.isSubmiting=false;
+    this.isShowLoading =false;
     console.log(history.state.data);
     if (history.state.data!=null){
       this.data = history.state.data;
@@ -62,10 +73,11 @@ export class RiderInfoComponent implements OnInit {
     this.profileForm.get('dob').setValue(this.data.dob);
     this.profileForm.get('nationality').setValue(this.data.nationality);
     this.profileForm.get('gender').setValue(this.data.gender);
-    this.profileForm.get('mobil1').setValue(this.data.mobile1);
-    this.profileForm.get('mobil2').setValue(this.data.mobile2);
-    this.profileForm.get('emergency').setValue(this.data.emergency);
+    this.profileForm.get('mobil1').setValue("+"+this.data.mobile1.replace('+',''));
+    this.profileForm.get('mobil2').setValue("+"+this.data.mobile2.replace('+',''));
+    this.profileForm.get('emergency').setValue("+"+this.data.emergency.replace('+',''));
     this.profileForm.get('contact').setValue(this.data.contact);
+    this.profileForm.get('address').setValue(this.data.address);
     this.profileForm.get('vehicle').setValue(this.data.vehicleno);
     this.profileForm.get('driving').setValue(this.data.drivingno);
     this.profileForm.get('working1').setValue(this.data.workexp1);
@@ -91,6 +103,8 @@ export class RiderInfoComponent implements OnInit {
   }
 
   saveReg(){
+    this.isSubmiting =true;
+    this.isShowLoading =true;
     this.populateDate();
     localStorage.setItem('user', JSON.stringify(this.register));
             //this.toastr.success('Successfully Registered.', 'Message');
@@ -99,11 +113,14 @@ export class RiderInfoComponent implements OnInit {
         .subscribe((resp:any)=>{
           console.log(resp);
           if (resp.ok=="yes"){
+            this.isShowLoading =false;
             this.toastr.success('Successfully Registered.', 'Message',{ closeButton: true,disableTimeOut:true })
                .onTap.subscribe((action) => this.router.navigate(['/admin']));
                //this.router.navigate(['/success']);
 
           }else {
+            this.isSubmiting =false;
+            this.isShowLoading =false;
             this.toastr.error('Fail to Register, '+resp.errmsg, 'Error', {
               timeOut: 3000
             });
@@ -120,10 +137,10 @@ export class RiderInfoComponent implements OnInit {
     this.register.nationality = this.profileForm.value.nationality;
     this.register.gender = this.profileForm.value.gender;
     this.register.dob = this.profileForm.value.dob;
-    this.register.mobile1 = this.profileForm.value.mobil1;
-    this.register.mobile2 = this.profileForm.value.mobil2;
+    this.register.mobile1 = this.profileForm.value.mobil1.replace('+','');
+    this.register.mobile2 = this.profileForm.value.mobil2.replace('+','');
     this.register.contact = this.profileForm.value.contact;
-    this.register.emergency = this.profileForm.value.emergency;
+    this.register.emergency = this.profileForm.value.emergency.replace('+','');
     this.register.vehicleno = this.profileForm.value.vehicle;
     this.register.drivingno = this.profileForm.value.driving;
     this.register.workexp1 = this.profileForm.value.working1;
@@ -133,6 +150,7 @@ export class RiderInfoComponent implements OnInit {
     this.register.status = this.profileForm.value.status;
     this.register.joindate = this.profileForm.value.joindate;
     this.register.uid = this.data.uid;
+    this.register.address = this.profileForm.value.address;
 
     console.log(this.register);
   }
