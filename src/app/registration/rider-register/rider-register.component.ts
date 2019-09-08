@@ -36,6 +36,8 @@ export class RiderRegisterComponent implements OnInit {
     driving: new FormControl('', Validators.required),
     working1: new FormControl(''),
     working2: new FormControl(''),
+    bankAccount:new FormControl(''),
+    bankName:new FormControl(''),
     stardate: new FormControl(null, Validators.required),
     remark: new FormControl('')
   });
@@ -49,7 +51,7 @@ export class RiderRegisterComponent implements OnInit {
   file2:any;
   file3:any;
   file4:any;
-
+  banks:any;
   constructor(private api:ApiService,
               private router:Router,
               private toastr: ToastrService) { }
@@ -57,6 +59,8 @@ export class RiderRegisterComponent implements OnInit {
   ngOnInit() {
     this.isLocal = true;
     this.isSubmiting=false;
+    this.api.getBanks()
+      .subscribe((data)=>this.banks=data);
   }
 
   onFaq() {
@@ -144,6 +148,8 @@ export class RiderRegisterComponent implements OnInit {
     this.register.workexp2 = this.profileForm.value.working2;
     this.register.startwork = this.profileForm.value.stardate;
     this.register.remark = this.profileForm.value.remark;
+    this.register.bankAccount = this.profileForm.value.bankAccount;
+    this.register.bankName= this.profileForm.value.bankName;
     this.register.mobile1 = this.register.mobile1.replace('+','');
     this.register.mobile2 = this.register.mobile2.replace('+','');
     this.register.emergency = this.register.emergency.replace('+','');

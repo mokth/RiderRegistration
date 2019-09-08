@@ -27,6 +27,7 @@ export class RiderInfoComponent implements OnInit {
   itemImgUrl4:String;
   isSubmiting:boolean;
   isShowLoading:boolean;
+  banks:any;
 
   profileForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -44,6 +45,8 @@ export class RiderInfoComponent implements OnInit {
     driving: new FormControl('', Validators.required),
     working1: new FormControl(''),
     working2: new FormControl(''),
+    bankAccount:new FormControl(''),
+    bankName:new FormControl(''),
     stardate: new FormControl(null, Validators.required),
     remark: new FormControl(''),
     status: new FormControl(null, Validators.required),
@@ -59,6 +62,8 @@ export class RiderInfoComponent implements OnInit {
     this.isLocal = true;
     this.isSubmiting=false;
     this.isShowLoading =false;
+    this.api.getBanks()
+    .subscribe((data)=>this.banks=data);
     console.log(history.state.data);
     if (history.state.data!=null){
       this.data = history.state.data;
@@ -85,6 +90,8 @@ export class RiderInfoComponent implements OnInit {
     this.profileForm.get('stardate').setValue(this.data.startwork);
     this.profileForm.get('remark').setValue(this.data.remark);
     this.profileForm.get('status').setValue(this.data.status);
+    this.profileForm.get('bankName').setValue(this.data.bankName);
+    this.profileForm.get('bankAccount').setValue(this.data.bankAccount);
     this.profileForm.get('joindate').setValue(this.data.joindate);
     let baseUrl = this.apiUrl.replace('api/','registerimg/')
     this.itemImgUrl1 = baseUrl +this.data.filename1;
@@ -150,6 +157,8 @@ export class RiderInfoComponent implements OnInit {
     this.register.status = this.profileForm.value.status;
     this.register.joindate = this.profileForm.value.joindate;
     this.register.uid = this.data.uid;
+    this.register.bankAccount = this.profileForm.value.bankAccount;
+    this.register.bankName= this.profileForm.value.bankName;
     this.register.address = this.profileForm.value.address;
 
     console.log(this.register);

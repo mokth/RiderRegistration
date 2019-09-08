@@ -19,6 +19,8 @@ export class Register {
     public startwork:Date;
     public remark:string;
     public status:string;
+    public bankAccount:string;
+    public bankName:string;
     public joindate:Date;
    
 }

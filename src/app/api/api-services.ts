@@ -16,6 +16,12 @@ export class ApiService {
         @Inject('API_URL') public apiUrl: string,
     ) {
     }
+   
+    getBanks() {       
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.get(this.apiUrl + 'rider/banks',
+             { headers: headers });
+    }
 
     postRegistration(reg: Register) {
         let body = JSON.stringify(reg);
