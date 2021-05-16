@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMatIntlTelInputModule } from 'ngx-mat-intl-tel-input';
-import { DxDataGridModule } from 'devextreme-angular';
+//import { DxDataGridModule } from 'devextreme-angular';
 import { DxFileUploaderModule } from "devextreme-angular";
 import { HttpClientModule } from '@angular/common/http';
-import {MatInputModule, MatNativeDateModule} from '@angular/material';
+import {MatInputModule, MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -34,6 +34,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { AuthguardService } from './services/AuthguardService';
 import { CanDeactivateGuard } from './services/CanDeactivateGuard';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
 
 @NgModule({
   declarations: [
@@ -62,10 +63,11 @@ import { CanDeactivateGuard } from './services/CanDeactivateGuard';
     MatExpansionModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    DxDataGridModule,
+    //DxDataGridModule,
     DxFileUploaderModule,
     BrowserAnimationsModule,
     NgxMatIntlTelInputModule,
+    Ng2ImgMaxModule,
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot() // ToastrModule added
   ],
@@ -77,6 +79,7 @@ import { CanDeactivateGuard } from './services/CanDeactivateGuard';
     MatDatepickerModule, 
    // {provide: APP_BASE_HREF, useValue: `${environment.BASE_URL}` },
     {provide:'API_URL',useValue: `${environment.apiUrl}`}, 
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
   bootstrap: [AppComponent]
 })

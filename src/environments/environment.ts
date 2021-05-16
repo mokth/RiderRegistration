@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   BASE_URL: '/',
   //apiUrl:'http://localhost:64946/api/',
-  apiUrl:'http://gala365.com.my/onlinechat/api/',
+  apiUrl:'http://localhost:64946/api/'
 };
 
 /*

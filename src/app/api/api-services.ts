@@ -19,14 +19,26 @@ export class ApiService {
    
     getBanks() {       
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
-        return this.http.get(this.apiUrl + 'rider/banks',
+        return this.http.get(this.apiUrl + 'Registration/banks',
+             { headers: headers });
+    }
+
+    getRefTables() {       
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.get(this.apiUrl + 'Registration/reftables',
+             { headers: headers });
+    }
+
+    getAreas() {       
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.get(this.apiUrl + 'Registration/areas',
              { headers: headers });
     }
 
     postRegistration(reg: Register) {
         let body = JSON.stringify(reg);
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
-        return this.http.post(this.apiUrl + 'rider/registration',
+        return this.http.post(this.apiUrl + 'Registration/registration',
             body, { headers: headers });
     }
 
@@ -34,7 +46,7 @@ export class ApiService {
         console.log(data);
         //let body = JSON.stringify(data); //'Content-Type': undefined
         let headers = new HttpHeaders().set('Content-Type', 'multi-part/form data');
-        return this.http.post(this.apiUrl + 'rider/registrationex',
+        return this.http.post(this.apiUrl + 'Registration/registrationex',
             data);
     }
 
@@ -43,7 +55,7 @@ export class ApiService {
         let headers = new HttpHeaders()
         .set('Content-Type', 'application/json')
         .set('Authorization', this.auth.getAuthToken());
-        return this.http.post(this.apiUrl + 'rider/regconfirm',
+        return this.http.post(this.apiUrl + 'Registration/regconfirm',
             body, { headers: headers });
     }
 }

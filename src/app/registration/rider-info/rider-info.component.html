@@ -47,7 +47,7 @@
             <mat-form-field>
               <input *ngIf="isLocal" formControlName="icno" required="true" matInput mask='000000-00-0000'
                 placeholder="NRIC / IC No / Passport No">
-              <input *ngIf="!isLocal" formControlName="icno" required="true" matInput placeholder="Passport No">
+              <input *ngIf="!isLocal" formControlName="icno" required="true" matInput mask='' placeholder="Passport No">
             </mat-form-field>
           </div>
 
@@ -57,7 +57,7 @@
           <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <input formControlName="dob" required="true" id="dob" matInput [matDatepicker]="picker"
-                placeholder="DOB">
+                placeholder="Date of Birth">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>

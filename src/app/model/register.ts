@@ -18,9 +18,13 @@ export class Register {
     public workexp2:string;
     public startwork:Date;
     public remark:string;
+    public area:string;
+    public state:string;
+    public city:string;
     public status:string;
     public bankAccount:string;
     public bankName:string;
     public joindate:Date;
+    public licenseExp:Date;
    
 }

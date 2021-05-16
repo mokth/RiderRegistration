@@ -57,8 +57,10 @@
         <div class="row">
           <div class="col-md-6 col-xs-12">
             <mat-form-field>
-              <input formControlName="dob" required="true" id="dob" matInput [matDatepicker]="picker"
-                placeholder="DOB / Tarikh Lahir">
+              <input formControlName="dob"
+                readonly
+                required="true" id="dob" matInput [matDatepicker]="picker"
+                placeholder="Date of Birth / Tarikh Lahir">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -102,10 +104,10 @@
           <div class="col-md-6 col-xs-12">
             <mat-form-field>
               <mat-label> Mobile (Whatsapp) / Whatsapp No</mat-label>
-              <!-- <input formControlName="mobil1" required="true" matInput placeholder="Mobile No1 / Telefon Bimbit1"> -->
-              <ngx-mat-intl-tel-input [onlyCountries]="['my']" [enableAutoCountrySelect]="true"
+               <input name="phone" formControlName="mobil2" required="true" matInput >
+              <!-- <ngx-mat-intl-tel-input [onlyCountries]="['my']" [enableAutoCountrySelect]="true"
                 [enablePlaceholder]="true" name="phone" formControlName="mobil2" #phone>
-              </ngx-mat-intl-tel-input>
+              </ngx-mat-intl-tel-input> -->
             </mat-form-field>
           </div>
         </div>
@@ -154,9 +156,17 @@
           </div>
           <div class="col-md-6 col-xs-12">
             <mat-form-field>
-              <input formControlName="driving" required="true" matInput
-                placeholder="Driving License No / No Lesen Memandu">
-            </mat-form-field>
+              <input formControlName="licenseExp"
+                readonly
+                required="true" id="licenseExp" matInput [matDatepicker]="picker3"
+                placeholder="License Expiry On / Tarikh Luput Lesen">
+            <!-- <input formControlName="dob"
+            readonly
+            required="true" id="dob" matInput [matDatepicker]="picker"
+            placeholder="Date of Birth / Tarikh Lahir"> -->
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+          </mat-form-field>
           </div>
         </div>
 
@@ -176,7 +186,9 @@
         <div class="row">
           <div class="col-md-6 col-xs-12">
             <mat-form-field>
-              <input formControlName="stardate" required="true" id="dwork" matInput [matDatepicker]="picker2"
+              <input formControlName="stardate" 
+                readonly
+                required="true" id="dwork" matInput [matDatepicker]="picker2"
                 placeholder="Available Date / Tarikh Sedia Berkerja">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
@@ -184,10 +196,45 @@
           </div>
           <div class="col-md-6 col-xs-12">
             <mat-form-field>
+              <mat-label>State</mat-label>
+              <mat-select required="true" formControlName="state" (selectionChange)="onStateChange($event)" >
+                <mat-option *ngFor="let state of states" [value]="state.code">
+                  {{state.code}}
+                </mat-option>
+              </mat-select>
+              </mat-form-field>
+            <!-- <mat-form-field>
               <input formControlName="remark" matInput placeholder="Remark / Catatan">
-            </mat-form-field>
+            </mat-form-field> -->
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-md-6 col-xs-12">
+            <mat-form-field>
+              <mat-label>City</mat-label>
+              <mat-select required="true" formControlName="city" (selectionChange)="onCityChange($event)" >
+                <mat-option *ngFor="let city of cities" [value]="city.code">
+                  {{city.code}}
+                </mat-option>
+              </mat-select>
+              </mat-form-field>
+          </div>
+          <div class="col-md-6 col-xs-12">
+            <mat-form-field>
+              <mat-label>Working Area</mat-label>
+              <mat-select required="true" formControlName="area" >
+                <mat-option *ngFor="let area of territory" [value]="area.area_Code">
+                  {{area.area_Code}}
+                </mat-option>
+              </mat-select>
+              </mat-form-field>
+            <!-- <mat-form-field>
+              <input formControlName="remark" matInput placeholder="Remark / Catatan">
+            </mat-form-field> -->
+          </div>
+        </div>
+
     </mat-expansion-panel>
     </mat-accordion>
     <!-- Working Experience  -->
@@ -205,8 +252,8 @@
               <mat-form-field>
               <mat-label>Bank Name / Name Bank</mat-label>
               <mat-select formControlName="bankName" >
-                <mat-option *ngFor="let bank of banks" [value]="bank.bankName">
-                  {{bank.bankName}}
+                <mat-option *ngFor="let bank of banks" [value]="bank.code">
+                  {{bank.code}}
                 </mat-option>
               </mat-select>
               </mat-form-field>
@@ -231,10 +278,27 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row">
-          <div class="col col-xs-12">
-            <dx-file-uploader #fileUploaderItem [multiple]="false" selectButtonText='Select Image'
-              labelText='Front Page IC / IC Muka Depan' accept="*" uploadMode="useForm"
-              (onValueChanged)="OnItemFileChange($event)"></dx-file-uploader>
+          <div class="col-md-7 col-xs-12">
+             <div *ngIf="isMobileResolution">Front Page IC / IC Muka Depan</div>
+             <dx-file-uploader 
+               #fileUploaderItem 
+               [multiple]="false" 
+               selectButtonText='Select Image'
+                labelText='Front Page IC / IC Muka Depan' 
+                accept="*" 
+                uploadMode="useForm"
+                (onValueChanged)="OnItemFileChange($event)">
+             </dx-file-uploader>
+              <div class="row">
+                <div class="col-1">                  
+                </div>
+                 <div class="col-1">
+                  <mat-spinner [diameter]="24" *ngIf="fileCompress"></mat-spinner>
+                 </div>
+                 <div class="col-3">
+                  <span *ngIf="fileCompress"><small>Compressing...</small> </span>
+                </div>
+              </div>  
           </div>
           <div class="col col-xs-12">
             <div class="form-group">
@@ -242,11 +306,23 @@
             </div>
           </div>
         </div>
+        <mat-divider></mat-divider>
         <div class="row">
-            <div class="col col-xs-12">
+            <div class="col-md-7 col-xs-12">
+              <div *ngIf="isMobileResolution">Front Page IC / IC Muka Depan</div>
               <dx-file-uploader #fileUploaderItem [multiple]="false" selectButtonText='Select Image'
                 labelText='Back Page IC / IC Muka Belakang' accept="*" uploadMode="useForm"
                 (onValueChanged)="OnItemFileChange2($event)"></dx-file-uploader>
+                <div class="row">
+                  <div class="col-1">                  
+                  </div>
+                   <div class="col-1">
+                    <mat-spinner [diameter]="24" *ngIf="fileCompress2"></mat-spinner>
+                   </div>
+                   <div class="col-3">
+                    <span *ngIf="fileCompress2"><small>Compressing...</small> </span>
+                  </div>
+                </div>  
             </div>
             <div class="col col-xs-12">
               <div class="form-group">
@@ -254,11 +330,23 @@
               </div>
             </div>
         </div>
+        <mat-divider></mat-divider>
         <div class="row">
-            <div class="col col-xs-12">
+            <div class="col-md-7 col-xs-12">
+              <div *ngIf="isMobileResolution">Font Driving License </div>
               <dx-file-uploader #fileUploaderItem [multiple]="false" selectButtonText='Select Image'
                 labelText='Font Driving License / License Motor Depan' accept="*" uploadMode="useForm"
                 (onValueChanged)="OnItemFileChange3($event)"></dx-file-uploader>
+                <div class="row">
+                  <div class="col-1">                  
+                  </div>
+                   <div class="col-1">
+                    <mat-spinner [diameter]="24" *ngIf="fileCompress3"></mat-spinner>
+                   </div>
+                   <div class="col-3">
+                    <span *ngIf="fileCompress3"><small>Compressing...</small> </span>
+                  </div>
+                </div>              
             </div>
             <div class="col col-xs-12">
               <div class="form-group">
@@ -266,23 +354,59 @@
               </div>
             </div>
         </div>
+        <mat-divider></mat-divider>
         <div class="row">
-            <div class="col col-xs-12">
+            <div class="col-md-7 col-xs-12">
+              <div *ngIf="isMobileResolution">Back Driving License </div>
               <dx-file-uploader #fileUploaderItem [multiple]="false" selectButtonText='Select Image'
                 labelText='Back Driving License / License Motor Belakang' accept="*" uploadMode="useForm"
                 (onValueChanged)="OnItemFileChange4($event)"></dx-file-uploader>
+                <div class="row">
+                  <div class="col-1">                  
+                  </div>
+                   <div class="col-1">
+                    <mat-spinner [diameter]="24" *ngIf="fileCompress4"></mat-spinner>
+                   </div>
+                   <div class="col-3">
+                    <span *ngIf="fileCompress4"><small>Compressing...</small> </span>
+                  </div>
+                </div>   
             </div>
             <div class="col col-xs-12">
               <div class="form-group">
                 <a><img class="itemimg" src="{{itemImgUrl4}}" width="200px" height="200px" /> </a>
               </div>
             </div>
-        </div>
+        </div>      
+        <mat-divider></mat-divider>
         <div class="row">
-           <div class="col col-xs-12">
-             <mat-spinner *ngIf="isSubmiting"></mat-spinner>
-           </div>
-        </div>
+          <div class="col-md-7 col-xs-12">
+            <div *ngIf="isMobileResolution">Selfie Photo </div>
+            <dx-file-uploader #fileUploaderItem [multiple]="false" selectButtonText='Select Image'
+              labelText='Selfie Photo' accept="*" uploadMode="useForm"
+              (onValueChanged)="OnItemFileChange5($event)"></dx-file-uploader>
+              <div class="row">
+                <div class="col-1">                  
+                </div>
+                 <div class="col-1">
+                  <mat-spinner [diameter]="24" *ngIf="fileCompress5"></mat-spinner>
+                 </div>
+                 <div class="col-3">
+                  <span *ngIf="fileCompress5"><small>Compressing...</small> </span>
+                </div>
+              </div>   
+          </div>
+          <div class="col col-xs-12">
+            <div class="form-group">
+              <a><img class="itemimg" src="{{itemImgUrl5}}" width="200px" height="200px" /> </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-xs-12">
+              <mat-spinner *ngIf="isSubmiting"></mat-spinner>
+            </div>
+         </div>
+      </div>
       </mat-expansion-panel>
     </mat-accordion>
      <!--Uplod Image  -->
